@@ -1,0 +1,43 @@
+@bg-gray-wool:rgba(245,245,245,0.9);
+@white-color: #fff;
+
+.header:extend(.flex-center-center){
+  position: fixed;
+  left: 0;
+  top:0;
+  right: 0;
+  z-index: 999;
+  height:0.48rem;
+  transition: background 0.3s linear;
+  &.show{
+      background: @bg-gray-wool;
+    box-shadow: 0 0 10px #ddd;
+    .search{
+      background: #fff;
+    }
+    .cell{
+      text-shadow: 0 1px 1px #ccc;
+    }
+  }
+  .title{
+    height:0.2rem;
+  }
+  .cell{
+    position: absolute;
+    top:0;
+    left:0;
+    right: auto;
+    width: 0.5rem;
+    height: 100%;
+    text-align: center;
+    &.right{
+      right: 0;
+      left: auto;
+      .iconfont{
+        font-size: 0.24rem;
+        color: @white-color;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,14 @@
+.scroll-x{
+  overflow: hidden;
+  .scroll-box{
+    padding-bottom: 0.2rem;
+    margin-bottom: -0.2rem;
+    overflow: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    &>*{
+      display: inline-block;
+    }
+  }
+}

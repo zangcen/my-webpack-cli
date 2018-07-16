@@ -1,0 +1,105 @@
+@border-radius:0.04rem;
+@border-color:#ccc;
+
+.border-fun(){
+  content:'';
+  display: block;
+  position: absolute;
+  z-index: 10;
+}
+.border{
+  position: relative;
+  &:before{
+    .border-fun();
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    border:1px solid @border-color;
+    border-radius: @border-radius;
+    pointer-events: none;
+    transform-origin: left top;
+  }
+}
+.border-t-b(){
+    .border-fun();
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: @border-color;
+}
+.border-l-r(){
+  .border-fun();
+  top:0;
+  width: 1px;
+  height: 100%;
+  background: @border-color;
+}
+.border-tp:extend(.border){
+  &:before{
+    .border-t-b();
+    top:0;
+    transform-origin: center top;
+  }
+}
+.border-bm:extend(.border-tp){
+  &:after{
+    .border-t-b();
+      bottom: 0;
+      transform-origin: center bottom;
+  }
+}
+.border-lt:extend(.border-tp){
+  &:before{
+    .border-l-r();
+    left:0;
+    transform-origin: left center;
+  }
+}
+.border-rt:extend(.border-tp){
+  &:after{
+    .border-l-r();
+    right:0;
+    transform-origin: right center;
+  }
+}
+
+.scale(@pos,@ratio){
+  & when (@pos=All){
+    width: 100% * @ratio;
+    height: 100% * @ratio;
+    transform: scale(1/@ratio);
+    border-radius:@border-radius *  @ratio;
+  }
+  & when (@pos=X){
+    height: 100%;
+    transform: scaleX( 1/@ratio );
+  }
+  & when (@pos=Y){
+    width: 100%;
+    transform: scaleY( 1/@ratio );
+  }
+
+}
+
+.media (@ratio){
+  @media (-webkit-device-pixel-ratio: @ratio){
+    .border:before{
+      .scale(All,@ratio);
+    }
+    .border-tp:before,
+    .border-bm:after{
+      .scale(Y,@ratio);
+    }
+    .border-lt:before,
+    .border-rt:after{
+      .scale(X,@ratio);
+    }
+  }
+}
+
+@media screen {
+  .media(1.5);
+  .media(2);
+  .media(3);
+}
